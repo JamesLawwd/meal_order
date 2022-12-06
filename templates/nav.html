@@ -1,0 +1,63 @@
+<div class="container-fluid">
+ <div class="navbar navbar-expand-md navbar-dark bg-dark p-5">
+ <b> <a href="" class="navbar-brand" style="font-size:35px;">Knight shop</a></b>
+ <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#jambo">
+ <span class="navbar-toggler-icon"></span>
+ </button>
+
+ <div class="collapse navbar-collapse" id="Feibang">
+ <div class="navbar-nav">
+
+ <div class="nav-item nav-link d-flex">
+
+<!-- <form action="/" method="post">-->
+<!-- <input type="search" name="search" id="search" placeholder="Search Your Product Here..." class="form-control p-3 text-center" style="border-radius:15px; width:400px;">-->
+<!-- <input type="submit" value="Search" class="btn btn-success btn-lg">-->
+
+<!-- </form>-->
+
+ <form action="/" class="d-flex" method="post">
+ <div class="input-group">
+ <input type="text" placeholder="Search" name="search"
+ class="form-control" style="width:250px;" required>
+
+ <button type="submit" class="btn btn-success" >
+ <i class="bi-search"></i>
+ </button>
+ </div>
+ </form>
+
+ </div>
+
+ <div class="nav-item nav-link d-flex">
+
+ <b>
+ <h4 class="text-white">Welcome {{session['key']}}</h4>
+
+ </b>
+
+ </div>
+
+ {% if 'key' in session %}
+ <div class="nav-item nav-link d-flex">
+ <a href="/logout" class="btn btn-danger btn-lg mb-2" onclick="logout()">Logout</a>
+
+ </div>
+
+  {% endif %}
+
+ <div class="nav-item nav-link d-flex">
+ <a href="/cart" class="btn btn-info" style="font-size:20px;">
+ <span class="fa fa-shopping-cart"></span>
+ </a>
+
+ </div>
+
+
+
+ </div>
+
+ </div>
+
+ </div>
+</div>

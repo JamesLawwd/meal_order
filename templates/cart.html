@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-              F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+      <link href="../static/css/style.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+ <br>
+
+ {% if 'cart_meal' in session %}
+           <p><a id="btnEmpty" href="{{ url_for('.empty_cart') }}" class="btn btn-danger">Empty Cart</a></p>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Meal</th>
+                        <th>Description</th>
+                        <th class="text-center">Unit Price</th>
+                        <th class="text-center">Price</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+<!--                set the variable quantity and product cost and item price-->
+                {% for key, val in session['cart_meal'].items() %}
+                 {% set quantity = session['cart_meal'][key]['description'] %}
+                 {% set product_cost = session['cart_meal'][key]['meal'] %}
+                 {% set item_price = session['cart_meal'][key]['total_price'] %}
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="">
+                                <img class="media-object" width="150" height="150"
+                                     src="../static/images/{{ session['cart_meal'][key]['image_url'] }}"
+                                     > </a>
+                             <div class="text-muted">
+                               <i> <h5>
+                                        {{ session['cart_meal'][key]['name'] }}
+                                        Brand <span class="text-info">{{ session['cart_meal'][key] }}</span>
+
+                                </h5></i>
+                            </div>
+                        </div></td>
+                        <td class=" col-md-3" style="text-align: center">
+                        <input type="email" class="form-control col-sm" value="{{ quantity }}">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>KSH &nbsp{{ price }} </strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>KSH &nbsp{{ meal_price }} </strong></td>
+                        <td class="col-sm-1 col-md-1">
+                        <a href="{{ url_for('.delete_product', code=session['cart_item'][key]['product_id']) }}" class="btn btn-danger">
+                            <span class="fa fa-trash"></span> Remove
+                        </a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4"><h5>Total Quantity</h5></td>
+                        <td class="text-right"><h5><strong>{{ session['all_total_quantity'] }}</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><h4>Total</h4></td>
+                        <td colspan="2" class="text-right"><h4><strong>$ {{ session['all_total_price'] }}</strong></h4></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                        <a href="/" class="btn btn-info">
+                            <span class="fa fa-shopping-cart"></span> Continue Shopping
+                        </a>
+                        </td>
+                         <td>
+                         {% if 'key' in session %}
+
+                            <button type="button" href="/mpesa" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#payment">
+                                 Checkout <span class="fa fa-check"></span>
+                            </button>
+
+
+<div class="modal" id="payment">
+                              <div class="modal-dialog">
+ <div class="modal-content">
+ <div class="modal-header">
+ <h5 class="modal-title text-center">Pay your Orders Here</h5>
+ <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+
+ </div>
+ <div class="modal-body">
+ <div class="card shadow p-5 bg-warning">
+ <form action="/mpesa_payment" method="post">
+     <h5>Enter your phone no.to pay {{session['all_total_price']}}</h5>
+ <input type="tel" name="phone" id="phone" placeholder="Enter your phone no. +2547xxxxxxxx" class="form-control" style="border-radius:20px;"><br>
+ <input type="hidden" name="amount" id="amount" placeholder="Enter the Amount" class="form-control" style="border-radius:20px;">
+ <br>
+<!-- <a href='' class="btn btn-success btn-lg">Pay Via Mpesa</a>-->
+ <input type="submit" value="Pay via Mpesa" class="btn btn-success btn-lg">
+
+ </form>
+
+ </div>
+
+
+ </div>
+ <div class="modal-footer">
+ <button type="button" class="btn btn-danger btn-lg" data-bs-dismiss="modal">Cancel</button>
+ </div>
+
+ </div>
+
+ </div>
+    </div>
+                             {% else %}
+
+                           <a href="/login" class="data-bs-toggle">Login</a><span class="fa fa-user"></span>
+
+                         {% endif %}
+                         </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-6">
+
+                </div>
+
+            </div>
+          {% else %}
+            <br>
+           <div class="no-records alert alert-info">Your Cart is Empty, Please continue shopping</div>
+            <br>
+
+            <a href="/" class="btn btn-info">
+                            <span class="fa fa-shopping-cart"></span> Continue Shopping
+            </a>
+
+             <a href="/account" class="btn btn-info">
+                            <span class="fa fa-user"></span> My Profile
+            </a>
+          {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>

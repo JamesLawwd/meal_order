@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- CSS only -->
+     <link rel="stylesheet" href=
+"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='vendor/product.css')}}">
+    <script>
+        function logout()
+        {
+        alert("Are you sure you want to logout")
+
+        }
+
+
+
+    </script>
+
+</head>
+<body>
+
+
+    {% include'nav.html'%}
+
+    <div class="container bg-secondary">
+
+
+        <h1 class="heading text-dark">Feibang Restaurant <span>Welcome!</span></h1>
+
+         <b>
+            <h2>Welcome{{session['key']}} : {{ session['email']}}</h2>
+        </b>
+
+        <a href="/logout" class="btn btn-danger btn-lg mb-2 mr-1" onclick="logout()">Logout</a>
+
+        <h2><marquee class="left text-lg text-dark bg-secondary"> @Feibang;Satisfactory choice</marquee></h2>
+        <div class="gallery card shadow bg-secondary p-5 mb-5">
+
+
+
+            {% for meal in meal%}
+<!--            with cards-->
+
+
+            <div class="card shadow" style="border-radius:10px;">
+
+            <div class="gallery-item">
+                <img class="gallery-image" src="../static/images/{{meal[5]}}" alt="" style="border-radius:10px;">
+            </div>
+
+            <div class="card-body text-center">
+                <h3>{{meal[1]}}</h3>
+               <h6>{{meal[4]}} KEs</h6>
+                <h6>description; {{meal[2]}}</h6>
+                <p class="meal">{{meal[3]}}</p>
+                <marquee class="left">Satisfactory choice</marquee>
+
+				<a href="/single/{{meal[0]}}" class="btn btn-primary btn-lg">View Product</a>
+
+            </div>
+
+          </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="gallery card shadow bg-secondary p-5 mb-5">
+
+
+
+            {% for x in drink%}
+<!--            with cards-->
+
+
+            <div class="card shadow" style="border-radius:10px;">
+
+            <div class="gallery-item">
+                <img class="gallery-image" src="../static/images/{{x[5]}}" alt="" style="border-radius:10px;">
+            </div>
+
+            <div class="card-body text-center">
+                <h3>{{x[1]}}</h3>
+               <h6>{{x[4]}} KEs</h6>
+                <h6>description; {{x[2]}}</h6>
+                <p class="drink">{{x[3]}}</p>
+                <marquee class="left">Satisfactory choice</marquee>
+
+                 <a href="/single/{{x[0]}}" class="btn btn-primary btn-lg">View Product</a>
+
+
+            </div>
+
+          </div>
+
+            {% endfor %}
+
+        </div>
+
+          </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% include 'footer.html' %}
+</body>
+</html>
